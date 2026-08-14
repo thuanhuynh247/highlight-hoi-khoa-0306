@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highlight Hội Khóa 03-06 · Hẹn nhau ngày về</title>
+<meta name="description" content="Video highlight buổi họp mặt 20 năm Hội Khóa Quốc Học 03-06 — Hẹn nhau ngày về.">
+
+<!-- Open Graph: hiển thị đẹp khi dán link vào Zalo/Facebook/nhóm chat -->
+<meta property="og:title" content="Highlight Hội Khóa 03-06 · Hẹn nhau ngày về">
+<meta property="og:description" content="Cùng xem lại những khoảnh khắc đáng nhớ của ngày hội ngộ.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logo.png">
+
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+
+<!-- Kết nối sớm tới YouTube để khi bấm Play, video load mượt và nhanh hơn -->
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="preconnect" href="https://i.ytimg.com">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green-deep: #03130c;
+    --green-dark: #04351f;
+    --green: #006838;
+    --green-soft: #0b5c33;
+    --red: #be1e2d;
+    --red-light: #e0424f;
+    --gold: #c8a24b;
+    --gold-light: #ecd499;
+    --gold-pale: #f3e2b0;
+    --cream: #f6efdd;
+    --ink: #f5f2e8;
+    --muted: #b9c9bd;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(130% 70% at 50% -8%, rgba(0,104,56,.55), rgba(4,53,31,0) 60%),
+      linear-gradient(165deg, var(--green-dark) 0%, var(--green-deep) 55%, #010805 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  /* Vệt trang trí mờ phía sau, gợi hình vòm cổng giống logo, không cần ảnh */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -20vw; left: 50%;
+    width: 140vw; height: 140vw;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 0%, rgba(200,162,75,.10), transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(28px, 6vw, 64px) 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    text-align: center;
+    max-width: 720px;
+    margin-bottom: clamp(28px, 5vw, 44px);
+    animation: dropIn .8s cubic-bezier(.2,.9,.25,1) both;
+  }
+
+  .logo-plate {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, var(--cream), #efe4c6);
+    border-radius: 20px;
+    padding: 14px 22px;
+    box-shadow:
+      0 0 0 1px rgba(200,162,75,.55),
+      0 18px 40px rgba(0,0,0,.45);
+    margin-bottom: 22px;
+  }
+  .logo-plate img {
+    height: clamp(56px, 9vw, 84px);
+    width: auto;
+    display: block;
+  }
+
+  .event-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--green-deep);
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    border-radius: 999px;
+    padding: 7px 18px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.35);
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: 900;
+    font-size: clamp(30px, 5.4vw, 48px);
+    line-height: 1.15;
+    margin: 0 0 12px;
+    color: var(--ink);
+    text-shadow: 0 4px 24px rgba(0,0,0,.45);
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .subtitle {
+    font-family: "Dancing Script", cursive;
+    font-weight: 700;
+    font-size: clamp(20px, 3.2vw, 27px);
+    color: var(--gold-pale);
+    margin: 0;
+  }
+
+  /* ---------- Video card ---------- */
+  .video-card {
+    width: 100%;
+    max-width: 900px;
+    background: linear-gradient(165deg, rgba(10,82,52,.55), rgba(4,22,14,.75));
+    border-radius: 26px;
+    padding: clamp(10px, 2vw, 18px);
+    box-shadow:
+      0 0 0 1px rgba(200,162,75,.4),
+      0 24px 70px rgba(0,0,0,.55);
+    animation: dropIn .9s .1s cubic-bezier(.2,.9,.25,1) both;
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    isolation: isolate;
+  }
+  @supports not (aspect-ratio: 16/9) {
+    .video-frame { padding-top: 56.25%; height: 0; }
+    .video-frame > * { position: absolute; inset: 0; }
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Facade: ảnh thumbnail + nút Play, chỉ tải iframe thật khi người xem bấm vào
+     -> trang mở nhanh hơn nhiều so với nhúng iframe YouTube ngay từ đầu */
+  .facade {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: #0a1a12 center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .facade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(3,19,12,.15) 0%, rgba(3,19,12,.65) 100%);
+  }
+  .play-btn {
+    position: relative;
+    z-index: 2;
+    width: clamp(64px, 10vw, 88px);
+    height: clamp(64px, 10vw, 88px);
+    border-radius: 999px;
+    background: linear-gradient(155deg, var(--red-light), var(--red));
+    box-shadow: 0 0 0 6px rgba(246,239,221,.12), 0 16px 34px rgba(0,0,0,.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease, box-shadow .25s ease;
+    animation: pulseGlow 2.6s ease-in-out infinite;
+  }
+  .play-btn svg { width: 34%; height: 34%; fill: var(--cream); margin-left: 4%; }
+  .facade:hover .play-btn {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(246,239,221,.2), 0 18px 38px rgba(0,0,0,.6);
+  }
+  .facade-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    text-shadow: 0 2px 8px rgba(0,0,0,.6);
+  }
+
+  /* Trạng thái: chưa có link YouTube */
+  .placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+    padding: 24px;
+    background:
+      radial-gradient(120% 100% at 50% 20%, rgba(200,162,75,.14), transparent 60%),
+      #08130d;
+  }
+  .placeholder .ring {
+    width: 64px; height: 64px;
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    box-shadow: 0 10px 26px rgba(0,0,0,.5);
+    font-size: 26px;
+    animation: pulseGlow 2.6s ease-in-out infinite;
+  }
+  .placeholder p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14.5px;
+    max-width: 320px;
+    line-height: 1.6;
+  }
+  .placeholder .hl { color: var(--gold-light); font-weight: 600; }
+
+  /* ---------- CTA ---------- */
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 999px;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(.94); }
+  .btn-primary {
+    color: var(--cream);
+    background: linear-gradient(135deg, var(--red-light), var(--red));
+    box-shadow: 0 10px 26px rgba(190,30,45,.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(190,30,45,.5); }
+  .btn-primary[aria-disabled="true"] {
+    opacity: .45;
+    pointer-events: none;
+    box-shadow: none;
+  }
+  .btn-ghost {
+    color: var(--gold-pale);
+    background: rgba(246,239,221,.06);
+    box-shadow: 0 0 0 1px rgba(200,162,75,.55);
+  }
+  .btn-ghost:hover {
+    background: rgba(200,162,75,.14);
+    transform: translateY(-2px);
+  }
+
+  footer {
+    margin-top: clamp(36px, 6vw, 56px);
+    text-align: center;
+    color: var(--muted);
+    font-size: 12.5px;
+    letter-spacing: .04em;
+  }
+  footer .fav { height: 16px; vertical-align: -3px; margin-right: 6px; border-radius: 4px; }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,162,75,.35), 0 16px 34px rgba(0,0,0,.55); }
+    50%      { box-shadow: 0 0 0 12px rgba(200,162,75,0), 0 16px 34px rgba(0,0,0,.55); }
+  }
+
+  @media (max-width: 480px) {
+    .cta-row { gap: 10px; }
+    .btn { font-size: 13.5px; padding: 11px 18px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="logo-plate">
+        <img src="assets/logo.png" alt="20 năm Hội Khóa Quốc Học 03-06 — Hẹn nhau ngày về">
+      </div>
+      <span class="event-tag">18.07.2026 · Quốc Học Huế</span>
+      <h1>Highlight <em>Hội Khóa 03-06</em></h1>
+      <p class="subtitle">“Ngày hội đã khép lại, nhưng khoảnh khắc thì còn mãi ở đây”</p>
+    </header>
+
+    <div class="video-card">
+      <div class="video-frame" id="videoFrame">
+        <!-- JS sẽ render facade (ảnh + nút Play) hoặc placeholder tuỳ vào YOUTUBE_ID bên dưới -->
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a id="youtubeBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-disabled="true">
+        ▶ Mở trên YouTube
+      </a>
+      <a class="btn btn-ghost" href="https://thuanhuynh247.github.io/Anh-Hoi-Khoa-0306/" target="_blank" rel="noopener">📷 Xem ảnh hội khóa</a>
+      <a class="btn btn-ghost" href="https://thuanhuynh247.github.io/Am-Vang-Hoi-Khoa-0306/" target="_blank" rel="noopener">📻 Âm vang ngày về</a>
+    </div>
+
+    <footer>
+      <img class="fav" src="assets/favicon.png" alt="">Hội Khóa Quốc Học 03-06 · Hẹn nhau ngày về
+    </footer>
+  </div>
+
+<script>
+  // ============================================================
+  //  CHỈ CẦN SỬA 1 DÒNG NÀY khi đã có video YouTube:
+  //  Dán ID video vào giữa hai dấu nháy. ID là đoạn ký tự sau
+  //  "v=" trong link YouTube, ví dụ:
+  //  https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  ID là "dQw4w9WgXcQ"
+  // ============================================================
+  const YOUTUBE_ID = "7EktsmI_PVU";
+
+  const frame = document.getElementById('videoFrame');
+  const ytBtn = document.getElementById('youtubeBtn');
+
+  function playIcon() {
+    return '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+  }
+
+  if (YOUTUBE_ID) {
+    ytBtn.href = 'https://youtu.be/' + YOUTUBE_ID;
+    ytBtn.removeAttribute('aria-disabled');
+
+    const thumbHi = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/maxresdefault.jpg';
+    const thumbLo = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg';
+
+    const facade = document.createElement('button');
+    facade.className = 'facade';
+    facade.type = 'button';
+    facade.setAttribute('aria-label', 'Phát video highlight Hội Khóa 03-06');
+    facade.style.backgroundImage = 'url(' + thumbHi + ')';
+    facade.innerHTML =
+      '<span class="play-btn">' + playIcon() + '</span>' +
+      '<span class="facade-caption">Nhấn để xem highlight hội khóa</span>';
+
+    // Nếu ảnh maxres chưa tồn tại (video mới up, độ phân giải thấp) thì rớt về hqdefault
+    const probe = new Image();
+    probe.onerror = () => { facade.style.backgroundImage = 'url(' + thumbLo + ')'; };
+    probe.src = thumbHi;
+
+    facade.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID +
+                   '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      iframe.title = 'Highlight Hội Khóa 03-06';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.loading = 'eager';
+      frame.replaceChildren(iframe);
+    }, { once: true });
+
+    frame.replaceChildren(facade);
+  } else {
+    // Chưa có video -> hiển thị placeholder, không nhúng gì cả (giữ trang nhẹ)
+    frame.innerHTML =
+      '<div class="placeholder">' +
+        '<div class="ring">🎬</div>' +
+        '<p>Video highlight đang được xử lý và sẽ sớm <span class="hl">cập nhật tại đây</span>.<br>Cả nhà quay lại xem sau nhé!</p>' +
+      '</div>';
+  }
+</script>
+</body>
+</html>
