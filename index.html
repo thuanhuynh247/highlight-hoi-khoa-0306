@@ -428,27 +428,19 @@
     videoBtn.classList.add('fb');
     videoBtn.removeAttribute('aria-disabled');
 
-    const facade = document.createElement('button');
+    // LƯU Ý: Facebook chặn nhúng (embed) trực tiếp trên trang cho những video
+    // bị Rights Manager gắn cờ bản quyền (thường do có nhạc nền) — dù video
+    // đã để Công khai vẫn bị chặn, không có cách nào nhúng được bằng code.
+    // Vì vậy ở đây chỉ mở video ở tab Facebook mới khi bấm vào, không cố nhúng.
+    const facade = document.createElement('a');
     facade.className = 'facade brand-fb';
-    facade.type = 'button';
-    facade.setAttribute('aria-label', 'Phát video highlight Hội Khóa 03-06 trên Facebook');
+    facade.href = FACEBOOK_URL;
+    facade.target = '_blank';
+    facade.rel = 'noopener';
+    facade.setAttribute('aria-label', 'Mở video highlight Hội Khóa 03-06 trên Facebook');
     facade.innerHTML =
       '<span class="play-btn fb">' + playIcon() + '</span>' +
-      '<span class="facade-caption">Nhấn để xem highlight trên Facebook</span>';
-
-    facade.addEventListener('click', () => {
-      const iframe = document.createElement('iframe');
-      const embedSrc = 'https://www.facebook.com/plugins/video.php?href=' +
-                        encodeURIComponent(FACEBOOK_URL) +
-                        '&show_text=false&autoplay=true';
-      iframe.src = embedSrc;
-      iframe.title = 'Highlight Hội Khóa 03-06 (Facebook)';
-      iframe.allow = 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
-      iframe.allowFullscreen = true;
-      iframe.style.border = 'none';
-      iframe.style.overflow = 'hidden';
-      frame.replaceChildren(iframe);
-    }, { once: true });
+      '<span class="facade-caption">Nhấn để xem highlight trên Facebook ↗</span>';
 
     frame.replaceChildren(facade);
 
