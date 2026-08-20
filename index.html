@@ -15,9 +15,11 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 
-<!-- Kết nối sớm tới YouTube để khi bấm Play, video load mượt và nhanh hơn -->
+<!-- Kết nối sớm tới YouTube/Facebook để khi bấm Play, video load mượt và nhanh hơn -->
 <link rel="preconnect" href="https://www.youtube-nocookie.com">
 <link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://www.facebook.com">
+<link rel="preconnect" href="https://connect.facebook.net">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +39,8 @@
     --cream: #f6efdd;
     --ink: #f5f2e8;
     --muted: #b9c9bd;
+    --fb-blue: #1877f2;
+    --fb-blue-light: #3b8bf5;
   }
 
   * { box-sizing: border-box; }
@@ -61,7 +65,7 @@
     top: -20vw; left: 50%;
     width: 140vw; height: 140vw;
     transform: translateX(-50%);
-    background: radial-gradient(circle at 50% 0%, rgba(200,162,75,.10), transparent 45%);
+    background: radial-gradient(circle at 50% 0%, rgba(200,162,75,.07), transparent 55%);
     pointer-events: none;
     z-index: 0;
   }
@@ -155,7 +159,11 @@
       0 0 0 1px rgba(200,162,75,.4),
       0 24px 70px rgba(0,0,0,.55);
     animation: dropIn .9s .1s cubic-bezier(.2,.9,.25,1) both;
+    transition: max-width .3s ease;
   }
+  /* Video dọc (Reel/Shorts, tỉ lệ 9:16) -> thu hẹp khung lại cho vừa mắt,
+     không kéo giãn thành một dải ngang khổng lồ */
+  .video-card.portrait { max-width: 420px; }
 
   .video-frame {
     position: relative;
@@ -166,8 +174,10 @@
     background: #000;
     isolation: isolate;
   }
+  .video-frame.portrait { aspect-ratio: 9 / 16; }
   @supports not (aspect-ratio: 16/9) {
     .video-frame { padding-top: 56.25%; height: 0; }
+    .video-frame.portrait { padding-top: 177.78%; }
     .video-frame > * { position: absolute; inset: 0; }
   }
 
@@ -179,8 +189,8 @@
     border: 0;
   }
 
-  /* Facade: ảnh thumbnail + nút Play, chỉ tải iframe thật khi người xem bấm vào
-     -> trang mở nhanh hơn nhiều so với nhúng iframe YouTube ngay từ đầu */
+  /* Facade: ảnh/nền + nút Play, chỉ tải iframe thật khi người xem bấm vào
+     -> trang mở nhanh hơn nhiều so với nhúng iframe ngay từ đầu */
   .facade {
     position: absolute;
     inset: 0;
@@ -198,6 +208,12 @@
     inset: 0;
     background: linear-gradient(180deg, rgba(3,19,12,.15) 0%, rgba(3,19,12,.65) 100%);
   }
+  /* Nền trang trí riêng cho thẻ Facebook khi không có ảnh thumbnail thật */
+  .facade.brand-fb {
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(24,119,242,.28), transparent 60%),
+      linear-gradient(165deg, rgba(10,82,52,.9), rgba(4,22,14,.95));
+  }
   .play-btn {
     position: relative;
     z-index: 2;
@@ -212,6 +228,7 @@
     transition: transform .25s ease, box-shadow .25s ease;
     animation: pulseGlow 2.6s ease-in-out infinite;
   }
+  .play-btn.fb { background: linear-gradient(155deg, var(--fb-blue-light), var(--fb-blue)); }
   .play-btn svg { width: 34%; height: 34%; fill: var(--cream); margin-left: 4%; }
   .facade:hover .play-btn {
     transform: scale(1.08);
@@ -226,9 +243,10 @@
     font-size: 14px;
     color: var(--ink);
     text-shadow: 0 2px 8px rgba(0,0,0,.6);
+    text-align: center;
   }
 
-  /* Trạng thái: chưa có link YouTube */
+  /* Trạng thái: chưa có video nào được gắn */
   .placeholder {
     position: absolute;
     inset: 0;
@@ -288,7 +306,12 @@
     background: linear-gradient(135deg, var(--red-light), var(--red));
     box-shadow: 0 10px 26px rgba(190,30,45,.4);
   }
+  .btn-primary.fb {
+    background: linear-gradient(135deg, var(--fb-blue-light), var(--fb-blue));
+    box-shadow: 0 10px 26px rgba(24,119,242,.4);
+  }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(190,30,45,.5); }
+  .btn-primary.fb:hover { box-shadow: 0 14px 30px rgba(24,119,242,.5); }
   .btn-primary[aria-disabled="true"] {
     opacity: .45;
     pointer-events: none;
@@ -340,15 +363,15 @@
       <p class="subtitle">“Ngày hội đã khép lại, nhưng khoảnh khắc thì còn mãi ở đây”</p>
     </header>
 
-    <div class="video-card">
+    <div class="video-card" id="videoCard">
       <div class="video-frame" id="videoFrame">
-        <!-- JS sẽ render facade (ảnh + nút Play) hoặc placeholder tuỳ vào YOUTUBE_ID bên dưới -->
+        <!-- JS render facade (nút Play) hoặc placeholder tuỳ theo cấu hình VIDEO_SOURCE bên dưới -->
       </div>
     </div>
 
     <div class="cta-row">
-      <a id="youtubeBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-disabled="true">
-        ▶ Mở trên YouTube
+      <a id="videoBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-disabled="true">
+        ▶ Mở video
       </a>
       <a class="btn btn-ghost" href="https://thuanhuynh247.github.io/Anh-Hoi-Khoa-0306/" target="_blank" rel="noopener">📷 Xem ảnh hội khóa</a>
       <a class="btn btn-ghost" href="https://thuanhuynh247.github.io/Am-Vang-Hoi-Khoa-0306/" target="_blank" rel="noopener">📻 Âm vang ngày về</a>
@@ -360,24 +383,81 @@
   </div>
 
 <script>
-  // ============================================================
-  //  CHỈ CẦN SỬA 1 DÒNG NÀY khi đã có video YouTube:
-  //  Dán ID video vào giữa hai dấu nháy. ID là đoạn ký tự sau
-  //  "v=" trong link YouTube, ví dụ:
-  //  https://www.youtube.com/watch?v=dQw4w9WgXcQ  ->  ID là "dQw4w9WgXcQ"
-  // ============================================================
-  const YOUTUBE_ID = "7EktsmI_PVU";
+  // ============================================================================
+  //  CẤU HÌNH VIDEO — chỉ cần sửa trong khối này
+  // ============================================================================
+  //  1) VIDEO_SOURCE: chọn nguồn đang dùng, "facebook" hoặc "youtube".
+  //
+  //  2) Dùng Facebook (video/reel):
+  //     - Dán nguyên link Facebook vào FACEBOOK_URL, ví dụ:
+  //       "https://www.facebook.com/reel/2227064334802817"
+  //     - QUAN TRỌNG: video/reel đó phải để chế độ "Công khai" (Public).
+  //       Nếu để "Bạn bè" hoặc "Riêng tư", người ngoài mở trang sẽ thấy
+  //       khung trống hoặc báo lỗi không xem được — Facebook chặn nhúng
+  //       (embed) với video không công khai, không có cách nào qua được.
+  //     - FACEBOOK_ORIENTATION: "portrait" (dọc, đa số Reel) hoặc
+  //       "landscape" (ngang, video thường/live) — chỉnh khung hiển thị
+  //       cho đúng tỉ lệ, tránh bị dư viền đen.
+  //
+  //  3) Dùng YouTube: điền YOUTUBE_ID (đoạn ký tự sau "v=" trong link
+  //     YouTube) và đổi VIDEO_SOURCE thành "youtube".
+  // ============================================================================
+  const VIDEO_SOURCE = "facebook";
+  const FACEBOOK_URL = "https://www.facebook.com/reel/2227064334802817";
+  const FACEBOOK_ORIENTATION = "portrait";
+  const YOUTUBE_ID = "";
 
   const frame = document.getElementById('videoFrame');
-  const ytBtn = document.getElementById('youtubeBtn');
+  const videoCard = document.getElementById('videoCard');
+  const videoBtn = document.getElementById('videoBtn');
 
   function playIcon() {
     return '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
   }
 
-  if (YOUTUBE_ID) {
-    ytBtn.href = 'https://youtu.be/' + YOUTUBE_ID;
-    ytBtn.removeAttribute('aria-disabled');
+  function setPortrait(isPortrait) {
+    frame.classList.toggle('portrait', isPortrait);
+    videoCard.classList.toggle('portrait', isPortrait);
+  }
+
+  if (VIDEO_SOURCE === 'facebook' && FACEBOOK_URL) {
+    setPortrait(FACEBOOK_ORIENTATION === 'portrait');
+
+    videoBtn.href = FACEBOOK_URL;
+    videoBtn.textContent = '▶ Mở trên Facebook';
+    videoBtn.classList.add('fb');
+    videoBtn.removeAttribute('aria-disabled');
+
+    const facade = document.createElement('button');
+    facade.className = 'facade brand-fb';
+    facade.type = 'button';
+    facade.setAttribute('aria-label', 'Phát video highlight Hội Khóa 03-06 trên Facebook');
+    facade.innerHTML =
+      '<span class="play-btn fb">' + playIcon() + '</span>' +
+      '<span class="facade-caption">Nhấn để xem highlight trên Facebook</span>';
+
+    facade.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      const embedSrc = 'https://www.facebook.com/plugins/video.php?href=' +
+                        encodeURIComponent(FACEBOOK_URL) +
+                        '&show_text=false&autoplay=true';
+      iframe.src = embedSrc;
+      iframe.title = 'Highlight Hội Khóa 03-06 (Facebook)';
+      iframe.allow = 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.style.border = 'none';
+      iframe.style.overflow = 'hidden';
+      frame.replaceChildren(iframe);
+    }, { once: true });
+
+    frame.replaceChildren(facade);
+
+  } else if (VIDEO_SOURCE === 'youtube' && YOUTUBE_ID) {
+    setPortrait(false);
+
+    videoBtn.href = 'https://youtu.be/' + YOUTUBE_ID;
+    videoBtn.textContent = '▶ Mở trên YouTube';
+    videoBtn.removeAttribute('aria-disabled');
 
     const thumbHi = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/maxresdefault.jpg';
     const thumbLo = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg';
@@ -408,8 +488,10 @@
     }, { once: true });
 
     frame.replaceChildren(facade);
+
   } else {
-    // Chưa có video -> hiển thị placeholder, không nhúng gì cả (giữ trang nhẹ)
+    // Chưa có video nào được gắn -> hiển thị placeholder, không nhúng gì cả
+    setPortrait(false);
     frame.innerHTML =
       '<div class="placeholder">' +
         '<div class="ring">🎬</div>' +
